@@ -14,5 +14,5 @@ function revertPunctuationMarks($str){
 			$j++;
 		}
 	}
-	echo $str;
+	return $str;
 }
