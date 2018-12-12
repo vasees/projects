@@ -1,6 +1,6 @@
 <?php
 
-function revertPunctuationMarks($str){
+function revertPunctuationMarks($str) {
 	
 	$pattern = "~[^ёЁа-яА-Яa-zA-Z0-9]~u";
 	$j = 0;
