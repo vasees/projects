@@ -72,5 +72,3 @@ echo
 		' . substr($statusCodes, 0, -2) . 
 '	}
 }';
-
-var_dump(parse($urlsPattern, $content));
