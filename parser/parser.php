@@ -1,11 +1,15 @@
 <?php
 
+ini_set('memory_limit', '-1');  //отключение ограничений на использование памяти скриптом
+
 $access_logPath = $argv[1];  //путь к файлу access_log.php
 //проверки на правильность аргументов командной строки
 if ($argc != 2) {
 	die('Неверное количество файлов. Укажите 1 файл access_log.php');
-} else if (preg_match('~.*access_log.php~', $access_logPath) != 1) {
-	die('Указан неверный путь  к файлу access_log.php');
+} else if (preg_match('~access_log.php~', $access_logPath) != 1) {
+	die('Указан неверный файл. Укажите файл access_log.php');
+} else if (!file_exists($access_logPath)) {
+	die('Указан неверный путь к файлу');
 }
 
 function parse($pattern, $content) {
@@ -21,7 +25,6 @@ $viewsCount = count(parse($viewsPattern, $content));
 // количество уникальных url
 $urlsPattern = '~"(http|https|ftp)://([A-Z0-9][A-Z0-9_-]*(?:.[A-Z0-9][A-Z0-9_-]*)+):?(d+)?/?"~i';
 $urlsCount = count(array_unique(parse($urlsPattern, $content)));
-preg_match_all($urlsPattern, $content, $match);
 // объем трафика
 $trafficPattern = '~ [0-9]+ "~';
 $sumTraffic = 0;
@@ -69,3 +72,5 @@ echo
 		' . substr($statusCodes, 0, -2) . 
 '	}
 }';
+
+var_dump(parse($urlsPattern, $content));
